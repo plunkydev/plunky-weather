@@ -1,0 +1,1 @@
+export const saludo = "Hola desde el saludo.js";
