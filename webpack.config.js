@@ -1,12 +1,12 @@
-const { clear } = require('console');
-const path = require('path');
+// webpack.config.js
+const path = require("path");
 
 module.exports = {
-    mode: 'development',
-    entry: './src/index.js',
+    mode: "development",
+    entry: "./src/index.js",
     output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'main.js',
-        clear: true
-    }
-}
+        filename: "main.js",
+        path: path.resolve(__dirname, "dist"),
+        clean: true,
+    },
+};
