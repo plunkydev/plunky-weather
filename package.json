@@ -1,7 +1,7 @@
 {
-    "name": "todo-list",
+    "name": "plunky-weather-app",
     "version": "1.0.0",
-    "description": "Todo List",
+    "description": "weather app for plunky dev",
     "main": "index.js",
     "scripts": {
         "build": "webpack --config webpack.prod.js",
@@ -23,12 +23,12 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/plunkydev/todo-list.git"
+        "url": "git+https://github.com/plunkydev/plunky-weather"
     },
     "bugs": {
-        "url": "https://github.com/plunkydev/todo-list/issues"
+        "url": "https://github.com/plunkydev/plunky-weather/issues"
     },
-    "homepage": "https://github.com/plunkydev/todo-list#readme",
+    "homepage": "https://github.com/plunkydev/plunky-weather#readme",
     "dependencies": {
         "date-fns": "^4.1.0"
     }
