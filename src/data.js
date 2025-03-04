@@ -1,5 +1,5 @@
 const giphiApiKey = "Ka0KnVifxMeN2QhIf7amGnIfoRTY8VU0"
-/* const keyApi = "0351861a5dca300b32e11fa9761d7e1c"
+const keyApi = "0351861a5dca300b32e11fa9761d7e1c"
 
 const location = {
     latitud: 0,
@@ -26,6 +26,7 @@ export async function getWeather(currentLocation) {
             precion: data.current.pressure
         }
         console.log(datosFiltrados)
+        getGif(data.current.weather_descriptions[0])
     } else {
         const response = await fetch(`http://api.weatherstack.com/current?access_key=${keyApi}&query=${currentLocation.latitud},${currentLocation.longitud}`, options)
         const data = await response.json()
@@ -39,6 +40,7 @@ export async function getWeather(currentLocation) {
             precion: data.current.pressure
         }
         console.log(datosFiltrados)
+        getGif(data.current.weather_descriptions[0])
     }
 }
 
@@ -75,19 +77,35 @@ if ("geolocation" in navigator) {
 
 
 getWeather(location)
- */
 
 
 
+export async function getGif(currentWeather) {
+    const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${giphiApiKey}&q=${currentWeather}&limit=5`);
+    const data = await response.json();
+    let index = Math.floor(Math.random() * 5);
+    const imageUrl = data.data[index].images['original'].url;
 
+    // Crear un elemento div para aplicar el fondo y el filtro
+    const backgroundDiv = document.createElement('div');
+    backgroundDiv.style.backgroundImage = `url(${imageUrl})`;
+    backgroundDiv.style.backgroundSize = "cover";
+    backgroundDiv.style.backgroundRepeat = "no-repeat";
+    backgroundDiv.style.backgroundPosition = "center center";
+    backgroundDiv.style.backgroundAttachment = "fixed";
+    backgroundDiv.style.height = "100vh";
+    backgroundDiv.style.width = "100vw";
 
-export async function getGif() {
-    const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${giphiApiKey}&q=sunny&limit=5`)
-    const data = await response.json()
-    const img = document.createElement('img')
-    let index = Math.floor(Math.random() * 5)
-    img.src = data.data[index].images['original'].url
-    document.body.appendChild(img)
+    // Aplicar el filtro de color
+    backgroundDiv.style.filter = "sepia(100%) hue-rotate(191deg) blur(7px)";
+
+    // Asegurarse de que el div cubra todo el cuerpo y esté detrás del contenido
+    backgroundDiv.style.position = "fixed";
+    backgroundDiv.style.top = "0";
+    backgroundDiv.style.left = "0";
+    backgroundDiv.style.zIndex = "-1";
+
+    // Añadir el div al body
+    document.body.appendChild(backgroundDiv);
 }
 
-getGif()
