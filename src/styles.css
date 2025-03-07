@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Signika+Negative:wght@300..700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #16394c;
+    --primary-border-color: #608094;
+    --secondary-color: #f2f2f2;
+    --text-color: #333;
+    --border-radius: 0.5rem;
+}
+
+body {
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    display: grid;
+    grid-template-columns: 1fr min(58ch, 100%) 1fr;
+    color: var(--text-color);
+}
+
+body > * {
+    grid-column: 2;
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.appContainer {
+    margin: 80px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.busquedaContainer {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 1rem;
+    width: 100%;
+}
+
+.busquedaContainer input {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: none;
+    background-color: #f2f2f2;
+    font-size: 1rem;
+    color: var(--text-color);
+    width: 100%;
+}
+
+.busquedaContainer button {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: none;
+    background-color: var(--primary-color);
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+}
+
+.climaContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    padding: 0.5rem;
+    text-align: center;
+    border: 4px solid var(--primary-border-color);
+}
+
+.dataClimaContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    width: 100%;
+}
+
+.temperaturaContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.windPrecipPressureContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1rem;
+    width: 100%;
+}
+
+.temperatura {
+    font-size: 2rem;
+}
+
+#iconoClimaId {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--border-radius);
+    border: 4px solid var(--primary-border-color);
+}
+
+.memeContainer {
+    border: 4px solid var(--primary-border-color);
+    background-color: var(--primary-color);
+    width: 100%;
+    height: 600px;
+    border-radius: var(--border-radius);
+}
