@@ -17,7 +17,6 @@ async function getWeather(currentLocation) {
         if (currentLocation.city){
             const response = await fetch(`http://api.weatherstack.com/current?access_key=${keyApi}&query=${currentLocation.city}`, options)
             const data = await response.json()
-            console.log(data)
             const datosFiltrados = {
                 lugar: `${data.location.name} ${data.location.region}, ${data.location.country}`,
                 icons: data.current.weather_icons,
@@ -27,13 +26,11 @@ async function getWeather(currentLocation) {
                 presipitacion: data.current.precip,
                 presion: data.current.pressure
             }
-            console.log(datosFiltrados)
             getGif(data.current.weather_descriptions[0])
             render(datosFiltrados)
         } else {
             const response = await fetch(`http://api.weatherstack.com/current?access_key=${keyApi}&query=${currentLocation.latitud},${currentLocation.longitud}`, options)
             const data = await response.json()
-            console.log(data)
             const datosFiltrados = {
                 lugar: `${data.location.name} ${data.location.region}, ${data.location.country}`,
                 icons: data.current.weather_icons,
@@ -43,7 +40,6 @@ async function getWeather(currentLocation) {
                 presipitacion: data.current.precip,
                 presion: data.current.pressure
             }
-            console.log(datosFiltrados)
             getGif(data.current.weather_descriptions[0])
             render(datosFiltrados)
         }
@@ -66,7 +62,6 @@ if ("geolocation" in navigator) {
                 const longitud =  position.coords.longitude;
                 location.latitud = latitud;
                 location.longitud = longitud;
-                console.log(location)
                 getWeather(location)
             } else {
                 getWeather(location)
@@ -93,11 +88,6 @@ if ("geolocation" in navigator) {
 } else {
     alert("Tu navegador no soporta Geolocalización.");
 }
-
-
-/* getWeather(location) */
-
-
 
 async function getGif(currentWeather) {
     const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${giphiApiKey}&q=${currentWeather}&limit=5`);
