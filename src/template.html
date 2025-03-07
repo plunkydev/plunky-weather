@@ -6,7 +6,32 @@
     <title>Plunky Weather</title>
 </head>
 <body>
-    <h1>Plunky Weather</h1>
-    <h2>Funcionando</h2>
+    <div class="appContainer" id="appContainerId">
+        <h1>Plunky Weather</h1>
+        <div class="busquedaContainer" id="busquedaContainerId">
+            <input type="text" id="busquedaId" placeholder="Conocer el Clima en..." autocomplete="off">
+            <button id="busquedaBotonId">Buscar</button>
+        </div>
+        <div class="climaContainer" id="climaContainerId">
+            <div class="lugarContainer" id="lugarContainerId">
+                <h3 id="lugarId">Medellin Antioquia, Colombia</h3>
+            </div>
+            <div class="dataClimaContainer">
+                <div class="iconsContainer" id="iconsContainerId">
+                    <img src="https://cdn.worldweatheronline.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png" alt="iconoClima" id="iconoClimaId">
+                    <h3 class="description" id="descriptionId">Partly cloudy</h3>
+                </div>
+                <div class="temperaturaContainer" id="temperaturaContainerId">
+                    <h2 class="temperatura" id="temperaturaId">16°C</h2>
+                </div>
+                <div class="windPrecipPressureContainer" id="windPrecipPressureContainerId">
+                    <p id="vientoId">Wind: 6.1 kmph</p>
+                    <p id="precipitacionId">Precip: 0.00 mm</p>
+                    <p id="presionId">Pressure: 1025.0 mb</p>
+                </div>
+            </div>
+        </div>
+        <div class="memeContainer" id="memeContainerId"></div>
+    </div>
 </body>
 </html>
