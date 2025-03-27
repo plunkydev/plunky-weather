@@ -45,7 +45,7 @@ async function getWeather(currentLocation) {
         }
     } catch (error) {
         if (error) {
-            alert("Limite de consultas excedido por este mes");
+            alert("Limite de consultas excedido por este mes")
     }
     }
 }
