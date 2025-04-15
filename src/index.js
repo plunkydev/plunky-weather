@@ -16,3 +16,4 @@ busquedaBoton.addEventListener('click', () => {
     location.city = busquedaInput.value;
     getWeather(location);
 });
+console.log('funcionando')
