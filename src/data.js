@@ -1,12 +1,13 @@
 import { render } from "./domRenderer.js"
+
 const giphiApiKey = "Ka0KnVifxMeN2QhIf7amGnIfoRTY8VU0"
-const keyApi = "aee6db3ecfc67b679ceccb6c1394c963"
+const keyApi = "24a415dc67a0c7dfbb60dd85da5b59e3"
 
 const location = {
     latitud: 0,
     longitud: 0,
     city: "medellin",
-}
+};
 
 const options = {
     method: "GET",
@@ -14,42 +15,41 @@ const options = {
 
 async function getWeather(currentLocation) {
     try {
-        if (currentLocation.city){
-            const response = await fetch(`http://api.weatherstack.com/current?access_key=${keyApi}&query=${currentLocation.city}`, options)
-            const data = await response.json()
-            const datosFiltrados = {
-                lugar: `${data.location.name} ${data.location.region}, ${data.location.country}`,
-                icons: data.current.weather_icons,
-                descripcion: data.current.weather_descriptions,
-                temperatura: data.current.temperature,
-                viento: data.current.wind_speed,
-                presipitacion: data.current.precip,
-                presion: data.current.pressure
-            }
-            getGif(data.current.weather_descriptions[0])
-            render(datosFiltrados)
+        let url = "";
+
+        if (currentLocation.city) {
+            url = `https://api.openweathermap.org/data/2.5/weather?q=${currentLocation.city}&appid=${keyApi}&units=metric&lang=es`;
         } else {
-            const response = await fetch(`http://api.weatherstack.com/current?access_key=${keyApi}&query=${currentLocation.latitud},${currentLocation.longitud}`, options)
-            const data = await response.json()
-            const datosFiltrados = {
-                lugar: `${data.location.name} ${data.location.region}, ${data.location.country}`,
-                icons: data.current.weather_icons,
-                descripcion: data.current.weather_descriptions,
-                temperatura: data.current.temperature,
-                viento: data.current.wind_speed,
-                presipitacion: data.current.precip,
-                presion: data.current.pressure
-            }
-            getGif(data.current.weather_descriptions[0])
-            render(datosFiltrados)
+            url = `https://api.openweathermap.org/data/2.5/weather?lat=${currentLocation.latitud}&lon=${currentLocation.longitud}&appid=${keyApi}&units=metric&lang=es`;
         }
+
+        const response = await fetch(url, options);
+        const data = await response.json();
+
+        if (response.status !== 200) {
+            console.error("Error desde la API:", data);
+            alert(`Error desde la API: ${data.message}`);
+            return;
+        }
+
+        const datosFiltrados = {
+            lugar: `${data.name}, ${data.sys.country}`,
+            icons: [`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`],
+            descripcion: [data.weather[0].description],
+            temperatura: data.main.temp,
+            viento: data.wind.speed,
+            presipitacion: data.rain?.['1h'] ?? 0,
+            presion: data.main.pressure
+        };
+
+        getGif(data.weather[0].description);
+        render(datosFiltrados);
+
     } catch (error) {
-        if (error) {
-            alert("Limite de consultas excedido por este mes")
-    }
+        console.error("Error al obtener el clima:", error);
+        alert("Hubo un error al obtener el clima. Verifica tu conexión o tu API key.");
     }
 }
-
 
 
 // Obtener la ubicación del usuario---------------------------------------------------------
@@ -89,6 +89,7 @@ if ("geolocation" in navigator) {
     alert("Tu navegador no soporta Geolocalización.");
 }
 
+
 async function getGif(currentWeather) {
     const response = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${giphiApiKey}&q=${currentWeather}&limit=5`);
     const data = await response.json();
@@ -96,7 +97,6 @@ async function getGif(currentWeather) {
     const imageUrl = data.data[index].images['original'].url;
     const memeContainer = document.getElementById('memeContainerId');
 
-    // Crear un elemento div para aplicar el fondo y el filtro
     const image = document.createElement("img");
     image.style.backgroundImage = `url(${imageUrl})`;
     image.style.backgroundSize = "cover";
@@ -104,13 +104,11 @@ async function getGif(currentWeather) {
     image.style.backgroundPosition = "center center";
     image.style.height = "100%";
     image.style.width = "100%";
-
-    // Aplicar el filtro de color
     image.style.filter = "sepia(100%) hue-rotate(191deg)";
 
-    // Añadir el div al memeContainer
     memeContainer.innerHTML = "";
     memeContainer.appendChild(image);
 }
 
 export { getWeather }
+
